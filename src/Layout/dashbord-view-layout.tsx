@@ -7,8 +7,8 @@ const AppLayout:React.FC=() =>{
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main>
-        <SidebarTrigger />
+      <main className="w-full px-8">
+        <SidebarTrigger className="cursor-pointer" />
        <Outlet />
       </main>
     </SidebarProvider>

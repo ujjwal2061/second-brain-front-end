@@ -13,18 +13,39 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
-import {Home,User2,ChevronUp, LogOut } from "lucide-react"
+import {Home,User2,ChevronUp, LogOut,Twitter,Youtube,Music} from "lucide-react"
 import { Link } from "react-router"
 import { Button } from "./button"
 
 export function AppSidebar() {
 
-    const items=[
+interface SidebarProps {
+   title:string,
+   url:string,
+   icons:React.ReactNode
+}
+    const items:SidebarProps[]=[
         {
             title:"Dashbord",
             url:"/dashbord",
-            icons:Home
-        }
+            icons:<Home />
+        }, 
+          {
+            title:"Twitter",
+            url:"twitter",
+            icons:<Twitter color="blue" />
+        }, 
+          {
+            title:"Youtube",
+            url:"youtube",
+            icons:<Youtube size={24} color="red" />
+        }, 
+          {
+            title:"Spotify",
+            url:"spotify",
+            icons:<Music  size={24} color="green" />
+        }, 
+
     ]
   return (
     <Sidebar>
@@ -34,10 +55,10 @@ export function AppSidebar() {
             <SidebarGroupContent>
                 <SidebarMenu>
                  {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
+                <SidebarMenuItem key={item.title} className="m-2">
                   <SidebarMenuButton asChild>
                     <Link to={item.url}> 
-                      <item.icons  size={20}  />
+                      {item.icons}
                       <span  className="font-medium">{item.title}</span>
                     </Link>
                   </SidebarMenuButton>
