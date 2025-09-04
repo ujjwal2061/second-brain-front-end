@@ -4,11 +4,13 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router";
+import { Link ,useNavigate } from "react-router";
 import { Button } from "@/components/ui/button";
 import { LoaderIcon } from "lucide-react";
-
+import { toast } from "sonner";
+import axios from "axios";
 export default function SignupPage() {
+    const navigate = useNavigate();
   const formScheam = z
     .object({
       username: z.string().min(3).max(10),
@@ -20,7 +22,8 @@ export default function SignupPage() {
       message: "Password don't match",
       path: ["confirmpassword"],
     });
-  const form = useForm<z.infer<typeof formScheam>>({
+    type SigupForm=z.infer<typeof formScheam> ;
+  const form = useForm<SigupForm>({
     resolver: zodResolver(formScheam),
     defaultValues: {
       username: "",
@@ -28,11 +31,29 @@ export default function SignupPage() {
       password: "",
     },
   });
+ 
+  // api call 
+  const Signuphandle=async(values:SigupForm)=>{
+   try{
+     const res=await axios.post(
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/brain/user/signup`,values,{
+        headers: { "Content-Type": "application/json" },
+     })
+     if(res.status===201){
+      toast.success("Account create successfully")
+     }
+      navigate("/login");
+   }catch(error:any){
+    const errorMsg=error.response?.data?.message || "Plese try again !"
+    toast.error(errorMsg);
+    console.log(error)
+   }
+  }
   return (
     <div className=" flex justify-center items-center min-h-screen">
             <div className="w-full max-w-md  rounded-lg shadow-lg border border-gray-200 p-6 sm:p-8">
       <Form {...form}>
-        <form className="space-y-6">
+        <form  onSubmit={form.handleSubmit(Signuphandle)}   className="space-y-6">
           <FormField
             control={form.control}
             name="username"

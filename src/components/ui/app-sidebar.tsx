@@ -16,9 +16,21 @@ import {
 import {Home,User2,ChevronUp, LogOut,Twitter,Youtube,Music} from "lucide-react"
 import { Link } from "react-router"
 import { Button } from "./button"
-
+import { useContext } from "react"
+import { UserContextProvider } from "@/context/user-content"
 export function AppSidebar() {
-
+  const context = useContext(UserContextProvider);
+if (!context) {
+  throw new Error("useContext must be used inside a ContextProvider");
+}
+const { user, loading,logout } = context;
+  if(!user){
+      return ;
+    }
+   
+    if(loading){
+      return <div>Loading ..</div>
+    }
 interface SidebarProps {
    title:string,
    url:string,
@@ -73,14 +85,15 @@ interface SidebarProps {
             <SidebarMenuItem>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild className="bg-neutral-600/30 font-semibold text-base  transition-all duration-200 ">
-                      <SidebarMenuButton>
-                        <User2  size={24}/>Ujjwal
+                      <SidebarMenuButton className="cursor-pointer">
+                        <User2  size={24}/>{user?.username}
+                        <span className="text-gray-500 text-sm">{user?.email}</span>
                         <ChevronUp  className="ml-auto"/>
                       </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent side="top"   className="w-48  p-0">
                      <DropdownMenuItem >
-                        <Button variant="destructive" className="w-full flex items-center gap-2 cursor-pointer font-semibold">
+                        <Button  onClick={logout}   variant="destructive" className="w-full flex items-center gap-2 cursor-pointer font-semibold">
                           <LogOut  className="size-5 text-wh"/> Sign Out
                         </Button>
                      </DropdownMenuItem>
