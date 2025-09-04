@@ -15,6 +15,8 @@ export function CreateContent({ open, onClose }: OpenmodelPropps) {
   const [link, setLink] = useState("");
   const [icons, setIcons] = useState("");
   const [tags, setTags] = useState("");
+  const [brain,setBrain]=useState("");
+
   const [loading,setLoading]=useState(false);
   // api call
   const handleFrom = async (event: React.FormEvent) => {
@@ -24,7 +26,7 @@ export function CreateContent({ open, onClose }: OpenmodelPropps) {
       setLoading(true);
       const res = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/brain/user/add-content`,
-        { title: title, link: link, icons: icons, tags: tags },
+        { title: title, link: link, icons: icons, tags: tags ,brain:brain},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,6 +74,14 @@ export function CreateContent({ open, onClose }: OpenmodelPropps) {
               placeholder="Paste your link"
             />
           </div>
+           <div className="flex flex-col gap-1">
+            <label className="font-medium text-sm text-gray-700">Brain-Type</label>
+            <Input
+              value={brain}
+              onChange={(e) => setBrain(e.target.value)}
+              placeholder="Brain type ex (youtube ,twittwer,spotify )"
+            />
+          </div>
 
           <div className="flex flex-col gap-1">
             <label className="font-medium text-sm text-gray-700">Icon</label>
@@ -87,7 +97,7 @@ export function CreateContent({ open, onClose }: OpenmodelPropps) {
             <Input
               value={tags}
               onChange={(e) => setTags(e.target.value)}
-              placeholder="comma separated #grind,#fun"
+              placeholder="Comma separated #grind,#fun"
             />
           </div>
 
