@@ -23,7 +23,7 @@ function App() {
         <Route path="/dashbord/twitter" element={<Twitterpage />} />
         <Route path="/dashbord/spotify" element={<SoptifyPage />} />
       </Route>
-        <Route path="/share-content/:hash" element={<Page />} />
+        <Route path="/share-content/:shareLink" element={<Page />} />
     </Routes>
   );
 }

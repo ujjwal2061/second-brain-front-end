@@ -13,7 +13,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu"
-import {Home,User2,ChevronUp, LogOut,Twitter,Youtube,Music} from "lucide-react"
+import {Home,User2,ChevronUp, LogOut,Twitter,Youtube,Music, Loader2Icon} from "lucide-react"
 import { Link } from "react-router"
 import { Button } from "./button"
 import { useContext } from "react"
@@ -29,7 +29,7 @@ const { user, loading,logout } = context;
     }
    
     if(loading){
-      return <div>Loading ..</div>
+      return <div className="text-sm text-gray-500">Loading <Loader2Icon className="animate-spin" /> </div>
     }
 interface SidebarProps {
    title:string,
@@ -63,7 +63,7 @@ interface SidebarProps {
     <Sidebar>
       <SidebarContent >
         <SidebarGroup>
-            <SidebarGroupLabel className="font-semibold text-xl text-primary">Second Barin</SidebarGroupLabel>
+            <SidebarGroupLabel className="font-semibold text-xl text-primary">Second Brain</SidebarGroupLabel>
             <SidebarGroupContent>
                 <SidebarMenu>
                  {items.map((item) => (
