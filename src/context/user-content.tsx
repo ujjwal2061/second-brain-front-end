@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import axios from "axios";
+import { toast } from "sonner";
 interface Props {
   children: React.ReactNode;
 }
@@ -10,7 +11,7 @@ type User = {
   email: string;
 };
 interface UserContextType {
-  user?: User| null;
+  user?: User | null;
   loading: boolean;
   error: string | null;
   logout: () => void;
@@ -23,8 +24,8 @@ export const ContextProvider = ({ children }: Props) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-const navagtion=useNavigate();
- // response interface
+  const navagtion = useNavigate();
+  // response interface
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -32,36 +33,40 @@ const navagtion=useNavigate();
     setError("");
   };
   // Fetch user detalis
- useEffect(()=>{
-     const fetchuser=async()=>{
-        const token=localStorage.getItem("token");
-        if(!token){
-            setUser(null);
-            navagtion("/")
-            return ;
-        }
-        try{ 
-     setLoading(true);
-     const res=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/brain/user/my-detalis`,{
-        headers:{
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-        },
-     })
-       // @ts-ignore
-     const response= res.data.data;
-    
-     setUser(response)
-        }catch(error:any){
-       setError(error.message || "Something went wrong");
-        console.log("Error", error);
+  useEffect(() => {
+    const fetchuser = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
         setUser(null);
-        }finally{
-            setLoading(false);
+        navagtion("/");
+        return;
+      }
+      try {
+        setLoading(true);
+        const res = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/brain/user/my-detalis`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        // @ts-ignore
+        const response = res.data.data;
+        setUser(response);
+      } catch (error: any) {
+        if (error) {
+          const errorMsg = error.response?.data?.message || "Something went wrong";
+          toast.error(errorMsg);
         }
-    }
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchuser();
-},[])
+  }, []);
   const values: UserContextType = {
     user,
     loading,

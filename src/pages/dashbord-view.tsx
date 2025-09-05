@@ -4,6 +4,7 @@ import { CreateContent } from "@/components/ui/create-content";
 import { useEffect, useState } from "react";
 import { Share2Icon, Plus } from "lucide-react";
 import axios from "axios";
+import { SharePops } from "@/components/ui/share-button-model";
 
 
 
@@ -21,6 +22,7 @@ export default function DashbordPage() {
   }
 
   const [IsModelOpen, setModeleOpen] = useState(false);
+  const [shareModle,setSharemodel]=useState(false);
   const [Isloading, setLoading] = useState(false);
   const [content, setContent] = useState<ContentItem[]>([]);
   const token = localStorage.getItem("token");
@@ -39,7 +41,6 @@ export default function DashbordPage() {
         }
       );
       // @ts-ignore
-      console.log(res.data.data)
       // @ts-ignore
       setContent(res.data.data);
     } catch (error) {
@@ -61,9 +62,10 @@ export default function DashbordPage() {
     <div className=" flex  flex-col  w-full  ">
       <div className="w-full flex  justify-end gap-2 px-2  py-1.5 items-center">
         <Button
+        onClick={()=>setSharemodel(true)}
           variant={"secondary"}
           title="Share"
-          className="flex border-2 cursor-pointer px-3 border-purple-300 text-primary/60">
+          className="flex border-2 cursor-pointer px-3 border-purple-300 hover:bg-primary/20 text-primary/60">
           <Share2Icon size={24} />
           Share
         </Button>
@@ -77,6 +79,7 @@ export default function DashbordPage() {
         </Button>
       </div>
       <CreateContent open={IsModelOpen} onClose={() => setModeleOpen(false)} />
+      <SharePops open={shareModle}  OnOpen={()=>setSharemodel(false)}/>
       <div className="grid grid-cols-1  lg:grid-cols-3 sm:grid-cols-2  gap-2 items-stretch">
          {content.map((item) => (
           <Card
