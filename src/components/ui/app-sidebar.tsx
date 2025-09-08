@@ -68,7 +68,7 @@ interface SidebarProps {
                 <SidebarMenu>
                  {items.map((item) => (
                 <SidebarMenuItem key={item.title} className="m-2">
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild className="bg-transparent hover:bg-primary hover:text-white">
                     <Link to={item.url}> 
                       {item.icons}
                       <span  className="font-medium">{item.title}</span>

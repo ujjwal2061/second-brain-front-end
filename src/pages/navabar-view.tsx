@@ -14,8 +14,8 @@ export default function Navabar() {
   return (
     <div className=" z-20 relative flex justify-between items-center p-2 w-full">
       <div className="flex items-center  p-0 gap-1">
-        <Link to="/">
-          <Brain className="text-primary" />
+        <Link to="/" className="flex  gap-1 items-center ">
+          <Brain  size={24} className="text-primary" /><span className=" text-xl font-semibold">SB</span>
         </Link>
         <p className="text-base font-medium"></p>
       </div>
