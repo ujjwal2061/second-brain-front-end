@@ -46,7 +46,7 @@ export default function SignupPage() {
    }catch(error:any){
     const errorMsg=error.response?.data?.message || "Plese try again !"
     toast.error(errorMsg);
-    console.log(error)
+ 
    }
   }
   return (

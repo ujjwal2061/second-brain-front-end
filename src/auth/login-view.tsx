@@ -50,7 +50,7 @@ export default function LoginPage() {
     } catch (error: any) {
       const errormsg = error.response?.data?.message || "Login Failed !";
       toast.error(errormsg);
-      console.log(error);
+     
     }
   };
   return (
