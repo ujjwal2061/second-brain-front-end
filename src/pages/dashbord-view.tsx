@@ -82,6 +82,9 @@ export default function DashbordPage() {
       <CreateContent open={IsModelOpen} onClose={() => setModeleOpen(false)} />
       <SharePops open={shareModle}  OnOpen={()=>setSharemodel(false)}/>
       <div className="grid grid-cols-1  lg:grid-cols-3 md:grid-cols-2  gap-2 items-stretch">
+        {content.length==0 && (
+          <p className="text-muted-foreground ">Your brain empty</p>
+        )}
          {content.map((item) => (
           <Card
             key={item._id}
