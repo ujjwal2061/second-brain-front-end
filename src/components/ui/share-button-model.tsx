@@ -23,7 +23,7 @@ export function SharePops({ open, OnOpen }: Sharemodel) {
         // @ts-ignore
         const url=`${import.meta.env.VITE_BACKEND_URL}/api/v1/brain/user/share-content/${res.data.hash}`;
          // @ts-ignore
-        const copyUrl=`https://second-brain-eosin.vercel.app/share-content/${res.data.hash}`
+        const copyUrl=`http://localhost:5173/share-content/${res.data.hash}`
         await navigator.clipboard.writeText(copyUrl);
         toast.success("Link copied to clipboard!")
         return url;

@@ -34,6 +34,8 @@ export default function TwitterPage() {
           }
         );
         // @ts-ignore
+        console.log(setContent.arguments.data.data)
+         // @ts-ignore
         setContent(res.data.data);
       } catch (error: any) {
         setError(error.response.message || "Something went wrong  try again !");

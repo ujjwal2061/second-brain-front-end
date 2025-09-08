@@ -33,10 +33,11 @@ export default function Page() {
             },
           }
         );
-          //@ts-ignore
+        
+           //@ts-ignore
         setData(res.data.content);
       } catch (err) {
-        console.error(err);
+      
         setError("Failed to load shared content ❌");
       } finally {
         setLoading(false);

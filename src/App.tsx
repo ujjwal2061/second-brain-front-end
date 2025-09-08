@@ -10,6 +10,7 @@ import Twitterpage from "./pages/dashbord-pages/twitter-view";
 import SoptifyPage from "./pages/dashbord-pages/spotify-view";
 import Page from "./pages/hash-page/Pgae"
 function App() {
+
   return (
     <Routes>
       <Route path="/" element={<Screen />} />
