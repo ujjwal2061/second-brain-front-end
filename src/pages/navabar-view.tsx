@@ -12,12 +12,12 @@ export default function Navabar() {
     setExpand(!IsExpand)
   }
   return (
-    <div className=" relative flex justify-between items-center p-2 w-full">
+    <div className=" z-20 relative flex justify-between items-center p-2 w-full">
       <div className="flex items-center  p-0 gap-1">
         <Link to="/">
           <Brain className="text-primary" />
         </Link>
-        <p className="text-base font-medium">Second Brain</p>
+        <p className="text-base font-medium"></p>
       </div>
       {/*This for the Desktop Menu */}
       <div className="hidden md:flex items-center gap-2 ">
@@ -47,7 +47,7 @@ export default function Navabar() {
        </div>
        {/*For moblie view Point of Navbar */}
        {IsExpand && (
-        <div className="absolute top-12 left-0 w-full dark:bg-black bg-white border-t shadow-md md:hidden">
+        <div className="absolute top-12 left-0 w-full dark:bg-black bg-white shadow-md md:hidden">
           <div className="flex flex-col gap-3 p-4">
             <Link to="/login" onClick={() => setExpand(false)}>
               <Button
